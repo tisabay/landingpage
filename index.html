@@ -1,187 +1,486 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Abay Bank Social Media</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #f3f4f6;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abay Bank - Connect With Us</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 46, 109, 0.1);
+            overflow: hidden;
+            text-align: center;
+        }
+        
+        header {
+            background: #0054a6;
+            padding: 30px 20px;
+            color: white;
+        }
+        
+        .logo {
+            width: 180px;
+            margin-bottom: 15px;
+            filter: brightness(0) invert(1);
+        }
+        
+        h1 {
+            font-weight: 600;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .tagline {
+            font-weight: 300;
+            opacity: 0.9;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+        
+        .services {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .service-btn {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 10px 15px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .service-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+        
+        .service-btn i {
+            margin-right: 8px;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 30px;
+        }
+        
+        .section {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+        
+        .section-title {
+            font-size: 1.2rem;
+            color: #0054a6;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #eaeaea;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title i {
+            margin-right: 10px;
+            font-size: 1.4rem;
+        }
+        
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .social-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.3s ease;
+            padding: 15px 10px;
+            border-radius: 10px;
+            background: #f8f9fa;
+        }
+        
+        .social-item:hover {
+            transform: translateY(-5px);
+            background: #f1f5f9;
+        }
+        
+        .icon-container {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            background: #f5f7fa;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .social-item:hover .icon-container {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .facebook:hover .icon-container {
+            background: #3b5998;
+        }
+        
+        .twitter:hover .icon-container {
+            background: #000000;
+        }
+        
+        .linkedin:hover .icon-container {
+            background: #0077b5;
+        }
+        
+        .youtube:hover .icon-container {
+            background: #ff0000;
+        }
+        
+        .tiktok:hover .icon-container {
+            background: #000000;
+        }
+        
+        .instagram:hover .icon-container {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+        }
+        
+        .social-icon {
+            font-size: 24px;
+            color: #0054a6;
+            transition: all 0.3s ease;
+        }
+        
+        .social-item:hover .social-icon {
+            color: white;
+        }
+        
+        .social-name {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: #555;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            background: #f1f5f9;
+            transform: translateX(5px);
+        }
+        
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0054a6;
+            color: white;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .contact-details {
+            flex-grow: 1;
+            text-align: left;
+        }
+        
+        .contact-type {
+            font-weight: 500;
+            color: #0054a6;
+            font-size: 0.9rem;
+        }
+        
+        .contact-value {
+            font-size: 1rem;
+            color: #333;
+        }
+        
+        .contact-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .map-container {
+            height: 250px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+            border: 1px solid #eaeaea;
+        }
+        
+        .ussd-btn {
+            display: inline-flex;
+            align-items: center;
+            background: #0054a6;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .ussd-btn:hover {
+            background: #003d7a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 84, 166, 0.3);
+        }
+        
+        .ussd-btn i {
+            margin-right: 8px;
+        }
+        
+        footer {
+            background: #f8f9fa;
+            padding: 20px;
+            border-top: 1px solid #eaeaea;
+            margin-top: 20px;
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .footer-tagline {
+            font-size: 0.85rem;
+            color: #888;
+        }
+        
+        @media (max-width: 900px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .social-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .services {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .service-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .contact-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .contact-icon {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
 </head>
-<body class="flex flex-col min-h-screen">
-
-  <div class="max-w-md sm:max-w-lg w-full mx-auto my-12 overflow-hidden rounded-3xl shadow-2xl transform transition-all duration-300 hover:scale-[1.01] border border-gray-100">
-
-    <!-- Header -->
-    <header class="bg-[#004461] py-8 px-4 flex flex-col items-center justify-center text-center">
-      <div class="h-24 w-24 flex items-center justify-center mb-4 shadow-lg rounded-full bg-white">
-        <!-- Logo -->
-        <svg viewBox="0 0 135.6 107.8" xmlns="http://www.w3.org/2000/svg"
-             class="w-16 h-16 sm:w-20 sm:h-20 text-[#004461]">
-          <circle cx="50" cy="50" r="40" fill="#4BA8AD"/>
-        </svg>
-      </div>
-      <h1 class="text-xl md:text-2xl font-extrabold text-white mb-1 leading-tight">Connect with Abay Bank</h1>
-      <p class="text-sm md:text-base text-gray-200 font-medium">Source of <span style="color:#dea558; font-weight:bold;">Greatness</span></p>
-    </header>
-
-    <!-- Body -->
-    <div class="bg-white p-6 md:p-8">
-
-      <!-- Social Media Section -->
-      <section class="mb-8">
-        <h2 class="text-lg font-bold text-[#004461] mb-4">Our Social Media Channels</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-
-          <!-- Facebook -->
-          <a href="https://www.facebook.com/abaybanksharecompany" target="_blank"
-             class="flex items-center space-x-3 p-4 bg-blue-100 rounded-xl shadow-sm 
-                    hover:bg-blue-200 transition duration-300 group">
-            <svg viewBox="0 0 112.196 112.196" xmlns="http://www.w3.org/2000/svg"
-                 class="w-6 h-6 sm:w-8 sm:h-8 flex-shrink-0 text-blue-600 transition duration-300 group-hover:text-blue-800">
-              <circle fill="#3B5998" cx="56.098" cy="56.098" r="56.098"/>
-              <path fill="#FFFFFF" d="M70.201,58.294h-10.01v36.672H45.025V58.294h-7.213V45.406h7.213v-8.34
-                   c0-5.964,2.833-15.303,15.301-15.303L71.56,21.81v12.51h-8.151c-1.337,0-3.217,0.668-3.217,3.513v7.585h11.334L70.201,58.294z"/>
-            </svg>
-            <span class="text-[#004461] font-semibold">Facebook</span>
-          </a>
-
-          <!-- Twitter / X -->
-          <a href="https://twitter.com/AbayBank" target="_blank"
-             class="flex items-center space-x-3 p-4 bg-gray-100 rounded-xl shadow-sm 
-                    hover:bg-gray-200 transition duration-300 group">
-            <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg"
-                 class="w-6 h-6 sm:w-8 sm:h-8 flex-shrink-0 text-gray-600 transition duration-300 group-hover:text-black">
-              <path d="M 11 4 C 7.14 4 4 7.14 4 11v28c0 3.85 3.14 7 7 7h28c3.85 0 7-3.15 7-7V11c0-3.86-3.15-7-7-7H11zM13.09 13L22.31 26.1 13 37h2.5l7.94-9.29L30 37h7.9L27.79 22.6 36 13h-2.5l-6.84 8L21 13h-7.91z"/>
-            </svg>
-            <span class="text-[#004461] font-semibold">X (Twitter)</span>
-          </a>
-
-          <!-- LinkedIn -->
-          <a href="https://www.linkedin.com/company/abaybank" target="_blank"
-             class="flex items-center space-x-3 p-4 bg-blue-100 rounded-xl shadow-sm 
-                    hover:bg-blue-200 transition duration-300 group">
-            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"
-                 class="w-6 h-6 sm:w-8 sm:h-8 flex-shrink-0 text-blue-700 transition duration-300 group-hover:text-blue-900">
-              <rect x="2" y="2" width="28" height="28" rx="14" fill="#1275B1"/>
-              <circle cx="11" cy="11" r="2" fill="white"/>
-            </svg>
-            <span class="text-[#004461] font-semibold">LinkedIn</span>
-          </a>
-
-          <!-- YouTube -->
-          <a href="https://www.youtube.com/@abaybank4665" target="_blank"
-             class="flex items-center space-x-3 p-4 bg-red-100 rounded-xl shadow-sm 
-                    hover:bg-red-200 transition duration-300 group">
-            <svg viewBox="0 -7 48 48" xmlns="http://www.w3.org/2000/svg"
-                 class="w-6 h-6 sm:w-8 sm:h-8 flex-shrink-0 text-red-600 transition duration-300 group-hover:text-red-800">
-              <path fill="currentColor" d="M24 13l13 7-13 7V13z"/>
-            </svg>
-            <span class="text-[#004461] font-semibold">YouTube</span>
-          </a>
-
-          <!-- TikTok -->
-          <a href="https://www.tiktok.com/@abaybank" target="_blank"
-             class="flex items-center space-x-3 p-4 bg-black rounded-xl shadow-sm 
-                    hover:bg-gray-800 transition duration-300 group">
-            <svg viewBox="0 0 250 250" xmlns="http://www.w3.org/2000/svg"
-                 class="w-6 h-6 sm:w-8 sm:h-8 flex-shrink-0 text-pink-500 transition duration-300 group-hover:text-pink-400">
-              <circle cx="125" cy="125" r="120" fill="currentColor"/>
-            </svg>
-            <span class="text-white font-semibold">TikTok</span>
-          </a>
-
-          <!-- Instagram -->
-          <a href="https://www.instagram.com/abay_bank/" target="_blank"
-             class="flex items-center space-x-3 p-4 bg-pink-100 rounded-xl shadow-sm 
-                    hover:bg-pink-200 transition duration-300 group">
-            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"
-                 class="w-6 h-6 sm:w-8 sm:h-8 flex-shrink-0 text-pink-600 transition duration-300 group-hover:text-pink-800">
-              <rect x="2" y="2" width="28" height="28" rx="6" fill="currentColor"/>
-            </svg>
-            <span class="text-[#004461] font-semibold">Instagram</span>
-          </a>
-
-          <!-- Telegram -->
-          <a href="https://t.me/abaybanksharecompany" target="_blank"
-             class="flex items-center space-x-3 p-4 bg-blue-100 rounded-xl shadow-sm 
-                    hover:bg-blue-200 transition duration-300 group">
-            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"
-                 class="w-6 h-6 sm:w-8 sm:h-8 flex-shrink-0 text-blue-400 transition duration-300 group-hover:text-blue-600">
-              <circle cx="16" cy="16" r="14" fill="currentColor"/>
-            </svg>
-            <span class="text-[#004461] font-semibold">Telegram</span>
-          </a>
-
-          <!-- WhatsApp -->
-          <a href="https://wa.me/+251991080520" target="_blank"
-             class="flex items-center space-x-3 p-4 bg-gray-100 rounded-xl shadow-sm 
-                    hover:bg-gray-200 transition duration-300 group">
-            <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"
-                 class="w-6 h-6 sm:w-8 sm:h-8 flex-shrink-0 text-green-500 transition duration-300 group-hover:text-green-700">
-              <rect width="512" height="512" rx="15%" fill="currentColor"/>
-            </svg>
-            <span class="text-[#004461] font-semibold">WhatsApp</span>
-          </a>
+<body>
+    <div class="container">
+        <header>
+            <!-- Logo placeholder - replace with actual Abay Bank logo -->
+            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjYwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjx0ZXh0IHg9IjEwIiB5PSIzNSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0id2hpdGUiPkFCQVkgQkFOSzwvdGV4dD48L3N2Zz4=" alt="Abay Bank Logo" class="logo">
+            <h1>Connect With Us</h1>
+            <p class="tagline">Follow our official channels for updates and news</p>
+            
+            <div class="services">
+                <a href="https://www.abaybank.com.et" class="service-btn" target="_blank">
+                    <i class="fas fa-globe"></i> Official Website
+                </a>
+                <a href="tel:8834" class="service-btn">
+                    <i class="fas fa-phone"></i> Call Center: 8834
+                </a>
+                <a href="tel:*812#" class="service-btn">
+                    <i class="fas fa-mobile-alt"></i> USSD: *812#
+                </a>
+            </div>
+        </header>
+        
+        <div class="main-content">
+            <div class="left-column">
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-share-alt"></i> Social Media</h2>
+                    <div class="social-grid">
+                        <a href="http://www.facebook.com/abaybanksharecompany" class="social-item facebook" target="_blank">
+                            <div class="icon-container">
+                                <i class="social-icon fab fa-facebook-f"></i>
+                            </div>
+                            <span class="social-name">Facebook</span>
+                        </a>
+                        
+                        <a href="https://twitter.com/AbayBank" class="social-item twitter" target="_blank">
+                            <div class="icon-container">
+                                <i class="social-icon fab fa-x-twitter"></i>
+                            </div>
+                            <span class="social-name">Twitter / X</span>
+                        </a>
+                        
+                        <a href="https://www.linkedin.com/company/abaybank" class="social-item linkedin" target="_blank">
+                            <div class="icon-container">
+                                <i class="social-icon fab fa-linkedin-in"></i>
+                            </div>
+                            <span class="social-name">LinkedIn</span>
+                        </a>
+                        
+                        <a href="https://www.youtube.com/@abaybank4665" class="social-item youtube" target="_blank">
+                            <div class="icon-container">
+                                <i class="social-icon fab fa-youtube"></i>
+                            </div>
+                            <span class="social-name">YouTube</span>
+                        </a>
+                        
+                        <a href="https://www.tiktok.com/@abaybank" class="social-item tiktok" target="_blank">
+                            <div class="icon-container">
+                                <i class="social-icon fab fa-tiktok"></i>
+                            </div>
+                            <span class="social-name">TikTok</span>
+                        </a>
+                        
+                        <a href="https://www.instagram.com/abay_bank/" class="social-item instagram" target="_blank">
+                            <div class="icon-container">
+                                <i class="social-icon fab fa-instagram"></i>
+                            </div>
+                            <span class="social-name">Instagram</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-mobile-alt"></i> USSD Banking</h2>
+                    <p>Access banking services anytime, anywhere by dialing</p>
+                    <a href="tel:*812#" class="ussd-btn">
+                        <i class="fas fa-signal"></i> Dial *812#
+                    </a>
+                </div>
+            </div>
+            
+            <div class="right-column">
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-map-marker-alt"></i> Main Branch Location</h2>
+                    <div class="map-container" id="map">
+                        <!-- Map will be loaded here -->
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-headset"></i> Contact Information</h2>
+                    <a href="https://www.abaybank.com.et" class="contact-link" target="_blank">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <div class="contact-details">
+                                <div class="contact-type">Official Website</div>
+                                <div class="contact-value">www.abaybank.com.et</div>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="tel:8834" class="contact-link">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-details">
+                                <div class="contact-type">Call Center</div>
+                                <div class="contact-value">8834</div>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="tel:+251115158070" class="contact-link">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="contact-details">
+                                <div class="contact-type">Head Office</div>
+                                <div class="contact-value">+251 11 515 8070</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
-      </section>
-
-      <!-- Contact Section -->
-      <section>
-        <h2 class="text-lg font-bold text-[#004461] mb-4">Contact Information</h2>
-        <div class="space-y-4">
-
-          <a href="https://maps.app.goo.gl/M7GBQWpRfHGMuD4x8" target="_blank"
-             class="flex items-center space-x-3 p-4 bg-red-100 rounded-xl shadow-sm hover:bg-red-200 transition duration-300 group">
-            <svg class="w-6 h-6 sm:w-8 sm:h-8 text-[#004461] flex-shrink-0 transition duration-300 group-hover:text-red-700"
-                 fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.3 7 13 7 13s7-7.7 7-13c0-3.9-3.1-7-7-7z"/></svg>
-            <span class="text-[#004461] font-semibold">Map Location</span>
-          </a>
-
-          <a href="http://www.abaybanksc.com" target="_blank"
-             class="flex items-center space-x-3 p-4 bg-gray-100 rounded-xl shadow-sm hover:bg-gray-200 transition duration-300 group">
-            <svg class="w-6 h-6 sm:w-8 sm:h-8 text-[#004461] flex-shrink-0 transition duration-300 group-hover:text-black"
-                 fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
-            <span class="text-[#004461] font-semibold">www.abaybanksc.com</span>
-          </a>
-
-          <a href="mailto:info@abaybank.com.et"
-             class="flex items-center space-x-3 p-4 bg-gray-100 rounded-xl shadow-sm hover:bg-gray-200 transition duration-300 group">
-            <svg class="w-6 h-6 sm:w-8 sm:h-8 text-[#004461] flex-shrink-0 transition duration-300 group-hover:text-black"
-                 fill="currentColor" viewBox="0 0 24 24"><path d="M22 6.5l-10 6-10-6V5h20v1.5z"/></svg>
-            <span class="text-[#004461] font-semibold">info@abaybank.com.et</span>
-          </a>
-
-          <a href="tel:8834"
-             class="flex items-center space-x-3 p-4 bg-gray-100 rounded-xl shadow-sm hover:bg-gray-200 transition duration-300 group">
-            <svg class="w-6 h-6 sm:w-8 sm:h-8 flex-shrink-0 text-[#004461] transition duration-300 group-hover:text-black"
-                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-              <circle cx="12" cy="12" r="10"/>
-            </svg>
-            <span class="text-[#004461] font-semibold">Call Center: 8834</span>
-          </a>
-
-          <a href="tel:*812%23"
-             class="flex items-center space-x-3 p-4 bg-gray-100 rounded-xl shadow-sm hover:bg-gray-200 transition duration-300 group">
-            <svg class="w-6 h-6 sm:w-8 sm:h-8 text-[#004461] flex-shrink-0 transition duration-300 group-hover:text-black"
-                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="7" cy="5" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="17" cy="5" r="1"/>
-              <circle cx="7" cy="10" r="1"/><circle cx="12" cy="10" r="1"/><circle cx="17" cy="10" r="1"/>
-              <circle cx="7" cy="15" r="1"/><circle cx="12" cy="15" r="1"/><circle cx="17" cy="15" r="1"/>
-              <circle cx="12" cy="20" r="1"/>
-            </svg>
-            <span class="text-[#004461] font-semibold">USSD: *812#</span>
-          </a>
-        </div>
-      </section>
-
+        
+        <footer>
+            <p class="copyright">© 2023 Abay Bank Share Company. All Rights Reserved.</p>
+            <p class="footer-tagline">Banking for a better tomorrow</p>
+        </footer>
     </div>
-  </div>
 
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Initialize map
+        const map = L.map('map').setView([9.005, 38.763], 15);
+        
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        
+        // Add a marker for Abay Bank's main branch (approximate location)
+        L.marker([9.005, 38.763])
+            .addTo(map)
+            .bindPopup('<b>Abay Bank Head Office</b><br>Addis Ababa, Ethiopia')
+            .openPopup();
+    </script>
 </body>
 </html>
