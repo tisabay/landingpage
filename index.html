@@ -36,15 +36,14 @@
         }
         
         header {
-            background: #0054a6;
+            background: #004461;
             padding: 30px 20px;
             color: white;
         }
         
         .logo {
-            width: 180px;
+            height: 60px;
             margin-bottom: 15px;
-            filter: brightness(0) invert(1);
         }
         
         h1 {
@@ -103,7 +102,7 @@
         
         .section-title {
             font-size: 1.2rem;
-            color: #0054a6;
+            color: #004461;
             margin-bottom: 15px;
             padding-bottom: 8px;
             border-bottom: 2px solid #eaeaea;
@@ -182,7 +181,7 @@
         
         .social-icon {
             font-size: 24px;
-            color: #0054a6;
+            color: #004461;
             transition: all 0.3s ease;
         }
         
@@ -218,7 +217,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #0054a6;
+            background: #004461;
             color: white;
             margin-right: 15px;
             flex-shrink: 0;
@@ -231,7 +230,7 @@
         
         .contact-type {
             font-weight: 500;
-            color: #0054a6;
+            color: #004461;
             font-size: 0.9rem;
         }
         
@@ -257,7 +256,7 @@
         .ussd-btn {
             display: inline-flex;
             align-items: center;
-            background: #0054a6;
+            background: #004461;
             color: white;
             padding: 12px 20px;
             border-radius: 50px;
@@ -268,9 +267,9 @@
         }
         
         .ussd-btn:hover {
-            background: #003d7a;
+            background: #002e44;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 84, 166, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 68, 97, 0.3);
         }
         
         .ussd-btn i {
@@ -293,6 +292,11 @@
         .footer-tagline {
             font-size: 0.85rem;
             color: #888;
+        }
+        
+        .greatness {
+            color: #dea558;
+            font-weight: bold;
         }
         
         @media (max-width: 900px) {
@@ -335,8 +339,8 @@
 <body>
     <div class="container">
         <header>
-            <!-- Logo placeholder - replace with actual Abay Bank logo -->
-            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjYwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjx0ZXh0IHg9IjEwIiB5PSIzNSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0id2hpdGUiPkFCQVkgQkFOSzwvdGV4dD48L3N2Zz4=" alt="Abay Bank Logo" class="logo">
+            <!-- Abay Bank Logo -->
+            <img src="https://www.abaybanksc.com/wp-content/uploads/2020/08/abayBank_logo2-01-1.png" alt="Abay Bank Logo" class="logo">
             <h1>Connect With Us</h1>
             <p class="tagline">Follow our official channels for updates and news</p>
             
@@ -421,14 +425,14 @@
                 
                 <div class="section">
                     <h2 class="section-title"><i class="fas fa-headset"></i> Contact Information</h2>
-                    <a href="https://www.abaybank.com.et" class="contact-link" target="_blank">
+                    <a href="https://www.abaybanksc.com" class="contact-link" target="_blank">
                         <div class="contact-item">
                             <div class="contact-icon">
                                 <i class="fas fa-globe"></i>
                             </div>
                             <div class="contact-details">
                                 <div class="contact-type">Official Website</div>
-                                <div class="contact-value">www.abaybank.com.et</div>
+                                <div class="contact-value">www.abaybanksc.com</div>
                             </div>
                         </div>
                     </a>
@@ -462,25 +466,35 @@
         
         <footer>
             <p class="copyright">© 2023 Abay Bank Share Company. All Rights Reserved.</p>
-            <p class="footer-tagline">Banking for a better tomorrow</p>
+            <p class="footer-tagline">Source of <span class="greatness">Greatness</span></p>
         </footer>
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        // Initialize map
-        const map = L.map('map').setView([9.005, 38.763], 15);
+        // Initialize map with Abay Bank head office location
+        const map = L.map('map').setView([9.019819, 38.765945], 16);
         
         // Add OpenStreetMap tiles
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
         
-        // Add a marker for Abay Bank's main branch (approximate location)
-        L.marker([9.005, 38.763])
+        // Add a marker for Abay Bank's head office
+        L.marker([9.019819, 38.765945])
             .addTo(map)
-            .bindPopup('<b>Abay Bank Head Office</b><br>Addis Ababa, Ethiopia')
+            .bindPopup('<b>Abay Bank Head Office</b><br>Africa Avenue, Addis Ababa, Ethiopia')
             .openPopup();
+            
+        // Add custom icon with Abay Bank colors
+        const abayIcon = L.divIcon({
+            className: 'abay-marker',
+            html: '<div style="background-color: #004461; color: white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border: 3px solid #dea558;"><i class="fas fa-building"></i></div>',
+            iconSize: [30, 30],
+            iconAnchor: [15, 15]
+        });
+        
+        L.marker([9.019819, 38.765945], {icon: abayIcon}).addTo(map);
     </script>
 </body>
 </html>
