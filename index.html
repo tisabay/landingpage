@@ -24,17 +24,6 @@
             padding: 20px;
             color: #333;
         }
-
-        .social-icon svg {
-    width: 24px;
-    height: 24px;
-    fill: #004461;
-    transition: all 0.3s ease;
-}
-
-.twitter:hover .social-icon svg {
-    fill: white;
-}
         
         .container {
             width: 100%;
@@ -196,8 +185,17 @@
             transition: all 0.3s ease;
         }
         
-        .social-item:hover .social-icon {
+        /* SVG icon styling */
+        .svg-icon {
+            width: 24px;
+            height: 24px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-item:hover .social-icon,
+        .social-item:hover .svg-icon {
             color: white;
+            fill: white;
         }
         
         .social-name {
@@ -379,7 +377,8 @@
                             </div>
                             <span class="social-name">Facebook</span>
                         </a>
-
+                        
+                        <!-- Fixed Twitter/X icon using SVG -->
                         <a href="https://twitter.com/AbayBank" class="social-item twitter" target="_blank">
                             <div class="icon-container">
                                 <svg class="svg-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -511,11 +510,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
